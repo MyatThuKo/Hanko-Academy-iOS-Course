@@ -7,25 +7,9 @@
 
 import UIKit
 
-struct wordDefinition {
-    let word: String
-    let partOfSpeech: String
-    let definition: String
-}
-
 class ViewController: UIViewController {
     // MARK: - Properties
-    let randomWordsList: [wordDefinition] = [
-        wordDefinition(word: "Football", partOfSpeech: "noun", definition: "(British English) a game played by two teams of eleven players who try to kick a round ball into the other team’s goal \n(American English) soccer"),
-        wordDefinition(word: "Search", partOfSpeech: "noun", definition: "to try to find someone or something by looking very carefully"),
-        wordDefinition(word: "Food", partOfSpeech: "noun", definition: "things that people and animals eat, such as vegetables or meat"),
-        wordDefinition(word: "Software", partOfSpeech: "noun", definition: "the sets of programs that tell a computer how to do a particular job"),
-        wordDefinition(word: "Engineer", partOfSpeech: "noun", definition: "someone whose job is to design or build roads, bridges, machines etc"),
-        wordDefinition(word: "Program", partOfSpeech: "noun", definition: "a set of instructions given to a computer to make it perform an operation"),
-        wordDefinition(word: "Beautiful", partOfSpeech: "adj", definition: "someone or something that is beautiful is extremely attractive to look at"),
-        wordDefinition(word: "Basketball", partOfSpeech: "noun", definition: "a game played indoors between two teams of five players, in which each team tries to win points by throwing a ball through a net"),
-        wordDefinition(word: "Vacation", partOfSpeech: "noun", definition: "(American English) time spent not working \n(British English) holiday")
-    ]
+    var randomWordsList = WordList()
     
     let appTitleLabel: UILabel = {
         let label = UILabel()
@@ -78,17 +62,28 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let favoriteWordTableView: UITableView = {
+       let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 30
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "SoftAmber")
         
+        favoriteWordTableView.dataSource = self
+        favoriteWordTableView.delegate = self
+        
         appTitleView()
         randomWordView()
+        addFavoriteWordTableView()
     }
     
     @objc func getRandomWord() {
-        var randomWord = randomWordsList.randomElement()
+        var randomWord = randomWordsList.list.randomElement()
         randomWordLabel.text = randomWord?.word ?? ""
         definitionLabel.text = randomWord?.definition ?? ""
         partsOfSpeechLabel.text = randomWord?.partOfSpeech ?? ""
@@ -115,7 +110,7 @@ class ViewController: UIViewController {
             pastelGreenBackground.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
             pastelGreenBackground.leadingAnchor.constraint(equalTo: appTitleLabel.leadingAnchor, constant: 0),
             pastelGreenBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            pastelGreenBackground.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            pastelGreenBackground.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
             
             randomWordLabel.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 15),
             randomWordLabel.leadingAnchor.constraint(equalTo: pastelGreenBackground.leadingAnchor, constant: 15),
@@ -123,8 +118,8 @@ class ViewController: UIViewController {
             partsOfSpeechLabel.leadingAnchor.constraint(equalTo: randomWordLabel.trailingAnchor, constant: 5),
             partsOfSpeechLabel.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 20),
             
-            definitionLabel.topAnchor.constraint(equalTo: randomWordLabel.bottomAnchor, constant: 10),
-            definitionLabel.leadingAnchor.constraint(equalTo: randomWordLabel.leadingAnchor, constant: 0),
+            definitionLabel.topAnchor.constraint(equalTo: randomWordLabel.bottomAnchor, constant: 5),
+            definitionLabel.leadingAnchor.constraint(equalTo: randomWordLabel.leadingAnchor),
             definitionLabel.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
             
             randomWordButton.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
@@ -133,5 +128,39 @@ class ViewController: UIViewController {
             randomWordButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
+    func addFavoriteWordTableView() {
+        view.addSubview(favoriteWordTableView)
+        
+        NSLayoutConstraint.activate([
+            favoriteWordTableView.topAnchor.constraint(equalTo: pastelGreenBackground.bottomAnchor, constant: 10),
+            favoriteWordTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            favoriteWordTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            favoriteWordTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return randomWordsList.list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        
+        var contentConfig = cell.defaultContentConfiguration()
+        contentConfig.text = randomWordsList.list[indexPath.row].word
+        contentConfig.secondaryText = randomWordsList.list[indexPath.row].definition
+        cell.contentConfiguration = contentConfig
+        
+        return cell
+    }
+    
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(randomWordsList.list[indexPath.row].word)")
+    }
+}
