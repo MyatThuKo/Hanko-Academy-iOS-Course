@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E29D592027F152CA007B6163 /* RandomWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29D591F27F152CA007B6163 /* RandomWordView.swift */; };
 		E2D936BB27F108260045A394 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D936BA27F108260045A394 /* WordList.swift */; };
 		E2FA1E8E27E3C040009FBF76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA1E8D27E3C040009FBF76 /* AppDelegate.swift */; };
 		E2FA1E9027E3C040009FBF76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA1E8F27E3C040009FBF76 /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E29D591F27F152CA007B6163 /* RandomWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWordView.swift; sourceTree = "<group>"; };
 		E2D936BA27F108260045A394 /* WordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		E2FA1E8A27E3C040009FBF76 /* Searchinary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Searchinary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2FA1E8D27E3C040009FBF76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E29D592127F1541F007B6163 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E2FA1E9127E3C040009FBF76 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E29D592227F15438007B6163 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E29D591F27F152CA007B6163 /* RandomWordView.swift */,
+				E2FA1E9827E3C046009FBF76 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E29D592327F15453007B6163 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E2FA1E8D27E3C040009FBF76 /* AppDelegate.swift */,
+				E2FA1E8F27E3C040009FBF76 /* SceneDelegate.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E29D592427F15468007B6163 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E2D936BA27F108260045A394 /* WordList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E2FA1E8127E3C040009FBF76 = {
 			isa = PBXGroup;
 			children = (
@@ -64,13 +100,12 @@
 		E2FA1E8C27E3C040009FBF76 /* Searchinary */ = {
 			isa = PBXGroup;
 			children = (
-				E2FA1E8D27E3C040009FBF76 /* AppDelegate.swift */,
-				E2FA1E8F27E3C040009FBF76 /* SceneDelegate.swift */,
-				E2FA1E9127E3C040009FBF76 /* ViewController.swift */,
-				E2D936BA27F108260045A394 /* WordList.swift */,
+				E29D592427F15468007B6163 /* Model */,
+				E29D592227F15438007B6163 /* View */,
+				E29D592127F1541F007B6163 /* Controller */,
 				E2FA1E9627E3C046009FBF76 /* Assets.xcassets */,
+				E29D592327F15453007B6163 /* Supporting Files */,
 				E2FA1EAA27E3C7F8009FBF76 /* Fonts */,
-				E2FA1E9827E3C046009FBF76 /* LaunchScreen.storyboard */,
 				E2FA1E9B27E3C046009FBF76 /* Info.plist */,
 			);
 			path = Searchinary;
@@ -181,6 +216,7 @@
 				E2FA1E9227E3C040009FBF76 /* ViewController.swift in Sources */,
 				E2FA1E8E27E3C040009FBF76 /* AppDelegate.swift in Sources */,
 				E2FA1E9027E3C040009FBF76 /* SceneDelegate.swift in Sources */,
+				E29D592027F152CA007B6163 /* RandomWordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
