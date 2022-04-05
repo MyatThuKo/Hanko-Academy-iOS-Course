@@ -42,6 +42,15 @@ class RandomWordView: UIView {
         label.font = UIFont(name: "Bitter-Italic", size: 15)
         return label
     }()
+    
+    let horizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .bottom
+        stackView.spacing = 10
+        return stackView
+    }()
 
     let definitionLabel: UILabel = {
         let label = UILabel()
@@ -51,6 +60,15 @@ class RandomWordView: UIView {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
+    }()
+    
+    let verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = 10
+        return stackView
     }()
     
     let randomWordButton: UIButton = {
@@ -107,27 +125,23 @@ class RandomWordView: UIView {
     
     private func addRandomWordView() {
         addSubview(pastelGreenBackground)
-        pastelGreenBackground.addSubview(randomWordLabel)
-        pastelGreenBackground.addSubview(partsOfSpeechLabel)
-        pastelGreenBackground.addSubview(definitionLabel)
+        horizontalStackView.addArrangedSubview(randomWordLabel)
+        horizontalStackView.addArrangedSubview(partsOfSpeechLabel)
+        verticalStackView.addArrangedSubview(horizontalStackView)
+        verticalStackView.addArrangedSubview(definitionLabel)
+        pastelGreenBackground.addSubview(verticalStackView)
         pastelGreenBackground.addSubview(randomWordButton)
-
+        
         NSLayoutConstraint.activate([
             pastelGreenBackground.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
             pastelGreenBackground.leadingAnchor.constraint(equalTo: appTitleLabel.leadingAnchor, constant: 0),
             pastelGreenBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             pastelGreenBackground.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
-
-            randomWordLabel.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 15),
-            randomWordLabel.leadingAnchor.constraint(equalTo: pastelGreenBackground.leadingAnchor, constant: 15),
-
-            partsOfSpeechLabel.leadingAnchor.constraint(equalTo: randomWordLabel.trailingAnchor, constant: 5),
-            partsOfSpeechLabel.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 20),
-
-            definitionLabel.topAnchor.constraint(equalTo: randomWordLabel.bottomAnchor, constant: 5),
-            definitionLabel.leadingAnchor.constraint(equalTo: randomWordLabel.leadingAnchor),
-            definitionLabel.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
-
+            
+            verticalStackView.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 15),
+            verticalStackView.leadingAnchor.constraint(equalTo: pastelGreenBackground.leadingAnchor, constant: 15),
+            verticalStackView.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
+            
             randomWordButton.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
             randomWordButton.bottomAnchor.constraint(equalTo: pastelGreenBackground.bottomAnchor, constant: -15),
             randomWordButton.heightAnchor.constraint(equalToConstant: 50),
