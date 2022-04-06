@@ -19,7 +19,7 @@ class RandomWordView: UIView {
         return label
     }()
     
-    let pastelGreenBackground: UIView = {
+    let backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "PastelGreen")
@@ -27,48 +27,10 @@ class RandomWordView: UIView {
         return view
     }()
     
-    let randomWordLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Football"
-        label.font = UIFont(name: "Bitter-Bold", size: 20)
-        return label
-    }()
-
-    let partsOfSpeechLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "noun"
-        label.font = UIFont(name: "Bitter-Italic", size: 15)
-        return label
-    }()
-    
-    let horizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .bottom
-        stackView.spacing = 10
-        return stackView
-    }()
-
-    let definitionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "(British English) a game played by two teams of eleven players who try to kick a round ball into the other team’s goal \n(American English) soccer"
-        label.font = UIFont(name: "Bitter-Regular", size: 14)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    
-    let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 10
-        return stackView
+    let randomWordView: WordView = {
+        let wordView = WordView()
+        wordView.translatesAutoresizingMaskIntoConstraints = false
+        return wordView
     }()
     
     let randomWordButton: UIButton = {
@@ -80,11 +42,10 @@ class RandomWordView: UIView {
         return button
     }()
     
-    let favoriteWordTableView: UITableView = {
-       let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.layer.cornerRadius = 30
-        return tableView
+    let tableView: UIView = {
+        let uiView = FavoriteWordTableView()
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        return uiView
     }()
     
     override init(frame: CGRect) {
@@ -92,8 +53,6 @@ class RandomWordView: UIView {
         
         backgroundColor = UIColor(named: "SoftAmber")
         setUpUI()
-        favoriteWordTableView.dataSource = self
-        favoriteWordTableView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -102,20 +61,21 @@ class RandomWordView: UIView {
     
     @objc func getRandomWord() {
         var randomWord = randomWordsList.list.randomElement()
-        randomWordLabel.text = randomWord?.word ?? ""
-        definitionLabel.text = randomWord?.definition ?? ""
-        partsOfSpeechLabel.text = randomWord?.partOfSpeech ?? ""
+        let word = randomWord?.word ?? ""
+        let definition = randomWord?.definition ?? ""
+        let partOfSpeech = randomWord?.partOfSpeech ?? ""
+        randomWordView.inputText(word: word, partOfSpeech: partOfSpeech, definition: definition)
     }
     
     private func setUpUI() {
         addAppTitleLabel()
         addRandomWordView()
-        addFavoriteWordTableView()
+        addTableView()
     }
     
     private func addAppTitleLabel() {
         addSubview(appTitleLabel)
-
+        
         NSLayoutConstraint.activate([
             appTitleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
             appTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
@@ -124,63 +84,35 @@ class RandomWordView: UIView {
     }
     
     private func addRandomWordView() {
-        addSubview(pastelGreenBackground)
-        horizontalStackView.addArrangedSubview(randomWordLabel)
-        horizontalStackView.addArrangedSubview(partsOfSpeechLabel)
-        verticalStackView.addArrangedSubview(horizontalStackView)
-        verticalStackView.addArrangedSubview(definitionLabel)
-        pastelGreenBackground.addSubview(verticalStackView)
-        pastelGreenBackground.addSubview(randomWordButton)
+        addSubview(backgroundView)
+        backgroundView.addSubview(randomWordView)
+        backgroundView.addSubview(randomWordButton)
         
         NSLayoutConstraint.activate([
-            pastelGreenBackground.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
-            pastelGreenBackground.leadingAnchor.constraint(equalTo: appTitleLabel.leadingAnchor, constant: 0),
-            pastelGreenBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            pastelGreenBackground.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+            backgroundView.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
+            backgroundView.leadingAnchor.constraint(equalTo: appTitleLabel.leadingAnchor, constant: 0),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            backgroundView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
             
-            verticalStackView.topAnchor.constraint(equalTo: pastelGreenBackground.topAnchor, constant: 15),
-            verticalStackView.leadingAnchor.constraint(equalTo: pastelGreenBackground.leadingAnchor, constant: 15),
-            verticalStackView.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
+            randomWordView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            randomWordView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            randomWordView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -10),
             
-            randomWordButton.trailingAnchor.constraint(equalTo: pastelGreenBackground.trailingAnchor, constant: -15),
-            randomWordButton.bottomAnchor.constraint(equalTo: pastelGreenBackground.bottomAnchor, constant: -15),
+            randomWordButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -15),
+            randomWordButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -15),
             randomWordButton.heightAnchor.constraint(equalToConstant: 50),
             randomWordButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    private func addFavoriteWordTableView() {
-        addSubview(favoriteWordTableView)
-
+    private func addTableView() {
+        addSubview(tableView)
+        
         NSLayoutConstraint.activate([
-            favoriteWordTableView.topAnchor.constraint(equalTo: pastelGreenBackground.bottomAnchor, constant: 10),
-            favoriteWordTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            favoriteWordTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            favoriteWordTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: 10),
+            tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    }
-}
-
-extension RandomWordView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return randomWordsList.list.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-
-        var contentConfig = cell.defaultContentConfiguration()
-        contentConfig.text = randomWordsList.list[indexPath.row].word
-        contentConfig.secondaryText = randomWordsList.list[indexPath.row].definition
-        cell.contentConfiguration = contentConfig
-
-        return cell
-    }
-
-}
-
-extension RandomWordView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(randomWordsList.list[indexPath.row].word)")
     }
 }

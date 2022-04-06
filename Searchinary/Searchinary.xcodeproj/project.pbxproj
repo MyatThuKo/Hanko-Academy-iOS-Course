@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E235CB8527FBC2F800EF3239 /* FavoriteWordTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235CB8427FBC2F800EF3239 /* FavoriteWordTableView.swift */; };
 		E29D592027F152CA007B6163 /* RandomWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29D591F27F152CA007B6163 /* RandomWordView.swift */; };
 		E2D936BB27F108260045A394 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D936BA27F108260045A394 /* WordList.swift */; };
 		E2FA1E8E27E3C040009FBF76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA1E8D27E3C040009FBF76 /* AppDelegate.swift */; };
@@ -18,9 +19,12 @@
 		E2FA1EA827E3C7CD009FBF76 /* Bitter-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2FA1EA327E3C7B0009FBF76 /* Bitter-Italic.ttf */; };
 		E2FA1EAD27E3C864009FBF76 /* Bitter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2FA1EAC27E3C862009FBF76 /* Bitter-Regular.ttf */; };
 		E2FA1EAE27E3C86A009FBF76 /* DancingScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2FA1EA927E3C7EF009FBF76 /* DancingScript-Bold.ttf */; };
+		E2FA953F27FBC89100C54875 /* WordDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA953E27FBC89100C54875 /* WordDetailTableViewCell.swift */; };
+		E2FA954127FBC9A300C54875 /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA954027FBC9A300C54875 /* WordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E235CB8427FBC2F800EF3239 /* FavoriteWordTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWordTableView.swift; sourceTree = "<group>"; };
 		E29D591F27F152CA007B6163 /* RandomWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWordView.swift; sourceTree = "<group>"; };
 		E2D936BA27F108260045A394 /* WordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		E2FA1E8A27E3C040009FBF76 /* Searchinary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Searchinary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,6 +38,8 @@
 		E2FA1EA327E3C7B0009FBF76 /* Bitter-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bitter-Italic.ttf"; sourceTree = "<group>"; };
 		E2FA1EA927E3C7EF009FBF76 /* DancingScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DancingScript-Bold.ttf"; sourceTree = "<group>"; };
 		E2FA1EAC27E3C862009FBF76 /* Bitter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bitter-Regular.ttf"; sourceTree = "<group>"; };
+		E2FA953E27FBC89100C54875 /* WordDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailTableViewCell.swift; sourceTree = "<group>"; };
+		E2FA954027FBC9A300C54875 /* WordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				E29D591F27F152CA007B6163 /* RandomWordView.swift */,
+				E2FA954027FBC9A300C54875 /* WordView.swift */,
+				E235CB8427FBC2F800EF3239 /* FavoriteWordTableView.swift */,
+				E2FA953E27FBC89100C54875 /* WordDetailTableViewCell.swift */,
 				E2FA1E9827E3C046009FBF76 /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -212,9 +221,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2FA954127FBC9A300C54875 /* WordView.swift in Sources */,
 				E2D936BB27F108260045A394 /* WordList.swift in Sources */,
+				E2FA953F27FBC89100C54875 /* WordDetailTableViewCell.swift in Sources */,
 				E2FA1E9227E3C040009FBF76 /* ViewController.swift in Sources */,
 				E2FA1E8E27E3C040009FBF76 /* AppDelegate.swift in Sources */,
+				E235CB8527FBC2F800EF3239 /* FavoriteWordTableView.swift in Sources */,
 				E2FA1E9027E3C040009FBF76 /* SceneDelegate.swift in Sources */,
 				E29D592027F152CA007B6163 /* RandomWordView.swift in Sources */,
 			);

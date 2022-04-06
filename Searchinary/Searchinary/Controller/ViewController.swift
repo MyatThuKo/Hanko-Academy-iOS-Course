@@ -9,7 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: - Properties
+    private var randomWordView: RandomWordView!
+    
     override func loadView() {
-        view = RandomWordView(frame: .zero)
+        randomWordView = RandomWordView(frame: .zero)
+        view = randomWordView
     }
 }
