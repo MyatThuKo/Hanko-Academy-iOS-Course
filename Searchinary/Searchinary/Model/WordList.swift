@@ -38,3 +38,13 @@ class Word: WordDetail {
         self.definition = definition
     }
 }
+
+struct Words: Codable {
+    let word: String
+    let definitions: [Definitions]
+}
+
+struct Definitions: Codable {
+    let definition: String
+    let partOfSpeech: String 
+}
