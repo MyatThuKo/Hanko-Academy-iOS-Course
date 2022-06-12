@@ -42,6 +42,11 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.pushViewController(FavoriteWordDetailViewController(), animated: true)
+        
+        let word = randomWordsList.list[indexPath.row].word
+        let partOfSpeech = randomWordsList.list[indexPath.row].partOfSpeech
+        let definition = randomWordsList.list[indexPath.row].definition
+        
+        navigationController?.pushViewController(FavoriteWordDetailViewController(word: word, partOfSpeech: partOfSpeech, definition: definition), animated: true)
     }
 }
