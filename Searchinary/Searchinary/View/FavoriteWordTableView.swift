@@ -7,8 +7,13 @@
 
 import UIKit
 
+//protocol FavoriteWordDelegate {
+//    func handleDetailTap()
+//}
+
 class FavoriteWordTableView: UIView {
     
+//    weak var favoriteWordDelegate: FavoriteWordDelegate?
     var randomWordsList = WordList()
     
     // MARK: - UI Properties
@@ -22,11 +27,11 @@ class FavoriteWordTableView: UIView {
     }()
     
     // MARK: - Initializers
-    override init(frame: CGRect) {
+    init(frame: CGRect, dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
         super.init(frame: frame)
         
-        tableView.dataSource = self
-        tableView.delegate = self
+        tableView.dataSource = dataSource
+        tableView.delegate = delegate
         
         addFavoriteWordTableView()
     }
@@ -44,32 +49,5 @@ class FavoriteWordTableView: UIView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    }
-}
-
-extension FavoriteWordTableView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return randomWordsList.list.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "WordDetailTableViewCell", for: indexPath) as? WordDetailTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        let word = randomWordsList.list[indexPath.row].word
-        let partOfSpeech = randomWordsList.list[indexPath.row].partOfSpeech
-        let definition = randomWordsList.list[indexPath.row].definition
-        
-        cell.load(word: word, partOfSpeech: partOfSpeech, definition: definition)
-        
-        return cell
-    }
-    
-}
-
-extension FavoriteWordTableView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.item.description)")
     }
 }

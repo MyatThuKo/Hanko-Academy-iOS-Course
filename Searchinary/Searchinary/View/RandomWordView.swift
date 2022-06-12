@@ -42,14 +42,14 @@ class RandomWordView: UIView {
         return button
     }()
     
-    let tableView: UIView = {
-        let uiView = FavoriteWordTableView()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
+    let tableView: UIView
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
+        tableView = FavoriteWordTableView(frame: frame, dataSource: dataSource, delegate: delegate)
+        
         super.init(frame: frame)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         backgroundColor = UIColor(named: "SoftAmber")
         setUpUI()
